@@ -2,6 +2,8 @@
 #include <string>
 #include <vector>
 
+//std vectors are similar to std arrays but they are more fliexible indeed their size is not fixed, but can be modified according to the needs
+
 // template<class T, class Allocator = std::allocator<T>>
 // class vector;
 
@@ -9,18 +11,18 @@ template <typename T>
 void print_vector(const std::vector<T>& v, const std::string& s);
 
 int main() {
-  std::vector<int> v0{1, 2, 4};
-  std::vector<int> v1(4, 4);
+  std::vector<int> v0{1, 2, 4}; //You can specify just the first template (int, double, etc). v0 has 3 elements, 1,2,4 
+  std::vector<int> v1(4, 4);   //v1 has 4 elements, all equal to 4. Notice the () braces, opposed to the {} braces in the code.
 
   print_vector(v0, "v0");
   print_vector(v1, "v1");
 
-  v1 = v0;
+  v1 = v0; //The size is flexible, after this operation the size of v1 will be changed.
 
   print_vector(v1, "v1 after copy");
 
   for (auto x : {7, 8, 9})
-    v1.push_back(x);
+    v1.push_back(x); //push_back is a function of vector and it expands dynamically v1, adding each element of x
 
   print_vector(v1, "v1 after push_back");
 
@@ -34,7 +36,7 @@ int main() {
 }
 
 template <typename T>
-void print_vector(const std::vector<T>& v, const std::string& s) {
+void print_vector(const std::vector<T>& v, const std::string& s) { //std vectors can be passed by reference! Also for matrices.
   std::cout << s << ": ";
   for (const auto& x : v)
     std::cout << x << " ";
