@@ -27,14 +27,19 @@ int main() {
     std::cout << std::endl;
   }
 
-  // int *pma = ma; 		// error
-  // int *pma[5] = ma;		// error
-  int* p = &ma[0][0];
+  // int *pma {ma}; 		// error
+  // int *pma[5] {ma};		// error
+  int* p{reinterpret_cast<int*>(ma)};
+  // int* p {&ma[0][0]};
 
   // print_ma(ma, 6, 5); 	// error
   print_ma(p, 6, 5);
 
+<<<<<<< HEAD
   int* d_ma = new int[6 * 5]{}; // (DEF_MAT) It's the same defn as above, but it stores the matrix in a long array and it allocates the matrix it in the heap, which is better since in general the stack is small, but the matrix is big (in term of memory)
+=======
+  auto d_ma = new int[6 * 5]{};
+>>>>>>> cacd8db538ed0268f7cfb6afecae9e43041ec15b
 
   std::cout << std::endl;
 
