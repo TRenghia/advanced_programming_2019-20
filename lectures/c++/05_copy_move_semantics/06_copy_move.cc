@@ -5,7 +5,7 @@
 template <typename T>
 class Vector {
   std::size_t _size;
-  std::unique_ptr<T[]> elem;
+  std::unique_ptr<T[]> elem; //Using the smart pointer the compiler automatically will call a destructor after a copy ctor, or move ctor, preventing the programmer to manipulate the element.
 
  public:
   // custom ctor
@@ -30,30 +30,30 @@ class Vector {
   /////////////////////////
   // copy semantics
 
-  // copy ctor -- deep copy
-  Vector(const Vector& v);
-
+  // copy ctor -- deep copy, i.e. a copy element-wise
+  Vector(const Vector& v); 
+  
   // copy assignment -- deep copy
   Vector& operator=(const Vector& v);
   // end of copy semantics
   /////////////////////////
 
-  /////////////////////////
-  // move semantics
+  /////////////////////////>>
+  // move semantics: allows to swap elements without actually creating new elemts, this is a lot more efficient
 
   // move ctor
-  Vector(Vector&& v) : _size{std::move(v._size)}, elem{std::move(v.elem)} {
+  Vector(Vector&& v) : _size{std::move(v._size)}, elem{std::move(v.elem)} { //Take home message: use smart pointer
     std::cout << "move ctor\n";
   }
 
   // Vector(Vector&& v) = default; // ok
 
   // move assignment
-  Vector& operator=(Vector&& v) {
+  Vector& operator=(Vector&& v) { //This is a function not a constructor
     std::cout << "move assignment\n";
     _size = std::move(v._size);
     elem = std::move(v.elem);
-    return *this;
+    return *this; //return *this because we can chain the equal assignements
   }
 
   // Vector& operator=(Vector&& v) = default; // ok
@@ -76,7 +76,7 @@ class Vector {
 
 // copy ctor
 template <typename T>
-Vector<T>::Vector(const Vector& v) : _size{v._size}, elem{new T[_size]} {
+Vector<T>::Vector(const Vector& v) : _size{v._size}, elem{new T[_size]} { //Even though the elements of v may be private, we can access them since the new variable is of the same type as v's
   std::cout << "copy ctor\n";
   std::copy(v.begin(), v.end(), begin());
 }
@@ -105,7 +105,7 @@ Vector<T>& Vector<T>::operator=(const Vector& v) {
 
 template <typename T>
 // why we return by value?
-Vector<T> operator+(const Vector<T>& lhs, const Vector<T>& rhs) {
+Vector<T> operator+(const Vector<T>& lhs, const Vector<T>& rhs) { //Overload of the plus operator to sum vectors
   const auto size = lhs.size();
 
   // how we should check that the two vectors have the same size?
@@ -114,7 +114,7 @@ Vector<T> operator+(const Vector<T>& lhs, const Vector<T>& rhs) {
   for (std::size_t i = 0; i < size; ++i)
     res[i] = lhs[i] + rhs[i];
 
-  return res;
+  return res; //We must return a value, otherwise when we call the function, after having that performed, res would go out out of scope and henceforth be deleted
 }
 
 template <typename T>
@@ -166,7 +166,7 @@ int main() {
 
   std::cout << "v4 = " << v4;
 
-  std::cout << "\nNRVO: Named Return Value Optimization\n";
+  std::cout << "\nNRVO: Named Return Value Optimization\n"; //For the named return value res, that we had in the overload of the plus operator, the compiler is able to performe an optimization, which avoids all the move ctor calls. 
 
   std::cout << "\nv4 = v3 + v3 + v2 + v3; calls\n";
   v4 = v3 + v3 + v2 + v3;

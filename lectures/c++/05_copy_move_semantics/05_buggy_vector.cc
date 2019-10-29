@@ -3,7 +3,7 @@
 
 template <typename T>
 class Vector {
-  std::unique_ptr<T[]> elem;
+  std::unique_ptr<T[]> elem; //smart pointer: the concept of ownership is implemented, elem is the only object, which can point to its element. Nobody can copy from the smart pointer. To manipulate smart pointer there are the default commands get, reset, and ?
   std::size_t _size;
 
  public:
