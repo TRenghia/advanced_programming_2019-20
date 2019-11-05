@@ -3,6 +3,8 @@
 
 #include "ap_error.h"
 
+//Smart pointers implement the concept of ownership. Only the owner can delete her smart pointer.
+//Use smart pointers for a cleaner code.
 class Vector {
   std::unique_ptr<double[]> elem;
 
@@ -14,6 +16,7 @@ class Vector {
     return elem[i];
   }  // you can use smart pointers almost like raw pointers
   ~Vector() noexcept { std::cout << "~Vector\n"; }
+  //Use noexcept if you are sure that the function does not contain errors. Noexcept makes the code faster.
 };
 
 class ManyResources {

@@ -34,6 +34,7 @@ int main() {
 }
 
 double square_root(const double d) {
+  //No need to write every condition, we build a macro, which manages the exceptions. It is useful to write macros to report where the error is and which function produced it. This type of control is expensive so we would like to turn the macro on and off (see the next file - 04_assert)
   // test the pre-conditions
 
   AP_ERROR(d >= 0 && d <= 50, Square_root_invalid)

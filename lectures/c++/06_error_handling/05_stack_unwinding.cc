@@ -52,7 +52,7 @@ class ManyResources {
 
 int main() {
   Foo f;
-  int* raw_ptr = new int[7];
+  int* raw_ptr = new int[7]; //In general, in order to have a clean code is better not to use raw pointers, but smart pointers instead.
   try {
     // int * raw_ptr=new int[7]; // wrong because raw_ptr would not be visible
     // inside the catch-clause

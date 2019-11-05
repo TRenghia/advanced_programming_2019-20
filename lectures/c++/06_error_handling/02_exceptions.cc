@@ -21,7 +21,7 @@ int main() {
     std::cout << "square root of " << number << " is " << d << '\n';
     return 0;
   } catch (const Square_root_invalid& s) {
-    std::cerr << s.message << std::endl;
+    std::cerr << s.message << std::endl;//In this case, we invoke the error message that the developer has written for the square root function. No need here to explicitly write the error messages.
     return 1;
   } catch (...) {
     std::cerr << "Unknown exception. Aborting.\n";

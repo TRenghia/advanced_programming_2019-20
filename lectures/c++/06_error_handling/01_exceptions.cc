@@ -1,7 +1,7 @@
 #include <cmath>
 #include <iostream>
 
-// implment a square root function that "deals with" negative
+// implement a square root function that "deals with" negative
 // numbers. Moreover according to the logic of the program, d should
 // never be greater than 50
 double square_root(const double d);
@@ -10,6 +10,7 @@ struct Negative_number {};
 
 struct Bigger_than_expected {};
 
+//Error handling in c++, in this way, instead of NaN, when we call square root of a negative number, an exception is thrown, comparing the types, obtaining the explanation.
 int main() {
   try {
     std::cout << "please insert a number\n";

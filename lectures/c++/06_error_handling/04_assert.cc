@@ -4,7 +4,7 @@
 
 #include "ap_error.h"
 
-// implment a square root function that "deals with" negative
+// implement a square root function that "deals with" negative
 // numbers. Moreover according to the logic of the program, d should
 // never be greater than 50
 double square_root(const double d);
@@ -35,3 +35,6 @@ double square_root(const double d) {
   // AP_ASSERT_IN_RANGE(d,0,50);
   return sqrt(d);
 }
+
+//Compile the code with the option -DNDEBUG to avoid the execution of the macros defined by assert. With this option, the square root of a negative number is -NaN. Otherwise, it would produce the abortion of the program at runtime. Assert is useful to enable/disable a check, providing flexibility and speed (at need).
+//For external input use AP_ERROR, for internal checks, test them with AP_ASSERT for performance. AP_ERROR (and assert when turned on) may slow down a lot your program.
