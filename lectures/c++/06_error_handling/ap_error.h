@@ -178,12 +178,12 @@ namespace internal {
       << "   function: " << __PRETTY_FUNCTION__ << '\n'                        \
       << "------------------------------------------------------------------"  \
       << "\n\n"
-
+//I need to write a macro, because a macro is copied and inserted in my code, adapting to the names I am using. A function wouldn't be as flexible and it would work only calling the exact function PRETTY_FUNCTION. So calling AP_ERROR (defined as a function) in a code where no function is called PRETTY_FUNCTION wouldn't do anything.
 #define _AP_ERROR1(cond) _AP_ERROR2(cond, std::runtime_error)
 
 #define AP_ASSERT(...)                                                         \
   SELECT_MACRO(__VA_ARGS__, _AP_ASSERT2, _AP_ASSERT1, dummy)(__VA_ARGS__)
-
+//We are defining the macro AP_ASSERT calling another macro inside it (this is possible). Moreover we are defining the option, which may be called to avoid the checks.
 #ifndef NDEBUG
 #  define _AP_ASSERT_(cond, exception_type) AP_ERROR(cond, exception_type)
 #else
